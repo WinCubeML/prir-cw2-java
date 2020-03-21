@@ -19,7 +19,11 @@ public class Matrix {
     this.data = data;
   }
 
-  public Matrix loadFile(String fileName) throws FileNotFoundException, InvalidFileFormatException {
+  public static Matrix blankMatrix(int rows, int columns) {
+    return new Matrix(rows, columns, new Double[rows * columns]);
+  }
+
+  public static Matrix loadFile(String fileName) throws FileNotFoundException, InvalidFileFormatException {
     File file = new File(fileName);
     Scanner scanner = new Scanner(file);
     try {
@@ -29,7 +33,7 @@ public class Matrix {
 
       for (int row = 0; row < rows; row++) {
         for (int column = 0; column < columns; column++) {
-          matrix.data[getIndex(row, column)] = scanner.nextDouble();
+          matrix.data[matrix.getIndex(row, column)] = scanner.nextDouble();
         }
       }
 
@@ -39,16 +43,16 @@ public class Matrix {
     }
   }
 
-  public int getIndex(int row, int column) {
-    return row * this.columns + column;
-  }
-
   public Double get(int row, int column) {
     return this.data[getIndex(row, column)];
   }
 
   public void set(int row, int column, Double value) {
     this.data[getIndex(row, column)] = value;
+  }
+
+  public int getIndex(int row, int column) {
+    return row * this.columns + column;
   }
 
   @Override
