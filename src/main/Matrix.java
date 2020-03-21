@@ -19,30 +19,6 @@ public class Matrix {
     this.data = data;
   }
 
-  public int getRows() {
-    return rows;
-  }
-
-  public void setRows(int rows) {
-    this.rows = rows;
-  }
-
-  public int getColumns() {
-    return columns;
-  }
-
-  public void setColumns(int columns) {
-    this.columns = columns;
-  }
-
-  public Double[] getData() {
-    return data;
-  }
-
-  public void setData(Double[] data) {
-    this.data = data;
-  }
-
   public Matrix loadFile(String fileName) throws FileNotFoundException, InvalidFileFormatException {
     File file = new File(fileName);
     Scanner scanner = new Scanner(file);
@@ -63,7 +39,27 @@ public class Matrix {
     }
   }
 
-  private int getIndex(int row, int column) {
+  public int getIndex(int row, int column) {
     return row * this.columns + column;
+  }
+
+  public Double get(int row, int column) {
+    return this.data[getIndex(row, column)];
+  }
+
+  public void set(int row, int column, Double value) {
+    this.data[getIndex(row, column)] = value;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    for (int row = 0; row < this.rows; row++) {
+      for (int column = 0; row < this.columns; column++) {
+        sb.append(String.format("%6.2f   ", this.data[getIndex(row, column)]));
+      }
+      sb.append("\n");
+    }
+    return sb.toString();
   }
 }
