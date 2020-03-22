@@ -18,7 +18,9 @@ public class Utilities {
     int sizeOfRange = (int) Math.ceil((double) sizeOfData / (double) ranges);
     for (int i = 0, currentIndex = 0; i < ranges; i++) {
       if (currentIndex < sizeOfData) {
-        // TODO
+        Pair<Integer, Integer> range = new Pair<>(currentIndex, Math.min(currentIndex + sizeOfRange, sizeOfData));
+        currentIndex = range.getSecond();
+        rangesList.add(range);
       } else {
         rangesList.add(new Pair<>(0, 0));
       }
