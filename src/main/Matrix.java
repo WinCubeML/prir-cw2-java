@@ -59,8 +59,8 @@ public class Matrix {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     for (int row = 0; row < this.rows; row++) {
-      for (int column = 0; row < this.columns; column++) {
-        sb.append(String.format("%6.2f   ", this.data[getIndex(row, column)]));
+      for (int column = 0; column < this.columns; column++) {
+        sb.append(String.format("%10.6f   ", this.data[getIndex(row, column)]));
       }
       sb.append("\n");
     }

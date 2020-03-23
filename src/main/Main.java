@@ -8,7 +8,7 @@ public class Main {
     if (threadCount == -1) {
       System.exit(-1);
     }
-    Matrix matrixA, matrixB;
+    Matrix matrixA = null, matrixB = null;
     try {
       matrixA = Matrix.loadFile("A.txt");
       matrixB = Matrix.loadFile("B.txt");
@@ -16,6 +16,14 @@ public class Main {
       e.printStackTrace();
       System.exit(-2);
     }
+
+    System.out.println("Macierz A:");
+    System.out.println(matrixA.toString());
+
+    System.out.println();
+
+    System.out.println("Macierz B:");
+    System.out.println(matrixB.toString());
   }
 
   /**
