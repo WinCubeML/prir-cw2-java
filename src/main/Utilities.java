@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Utilities {
@@ -13,7 +14,7 @@ public class Utilities {
    * @param ranges     number of splits to be done
    * @return list of pairs (begin,end) representing ranges
    */
-  public static List<Pair<Integer, Integer>> range(int sizeOfData, int ranges) {
+  public static List<Pair<Integer, Integer>> makeRanges(int sizeOfData, int ranges) {
     List<Pair<Integer, Integer>> rangesList = new ArrayList<>();
     int sizeOfRange = (int) Math.ceil((double) sizeOfData / (double) ranges);
     for (int i = 0, currentIndex = 0; i < ranges; i++) {
@@ -43,7 +44,8 @@ public class Utilities {
     }
 
     Matrix resultMatrix = Matrix.blankMatrix(matrixA.getRowsCount(), matrixB.getColumnsCount());
-    List<Pair<Integer, Integer>> ranges = range(resultMatrix.getRowsCount() * resultMatrix.getColumnsCount(), threads);
+    List<Pair<Integer, Integer>> ranges = makeRanges(resultMatrix.getRowsCount() * resultMatrix.getColumnsCount(),
+        threads);
 
     List<Thread> threadList = new ArrayList<>();
     for (int i = 0; i < threads; i++) {
@@ -65,7 +67,20 @@ public class Utilities {
    * @param threads the thread count
    * @return the Frobenius Norm
    */
-  public static double getFrobeniusFromMatrix(Matrix matrix, int threads) {
-    return 0;
+  public static double getFrobeniusFromMatrix(Matrix matrix, int threads) throws InterruptedException {
+    double[] resultArray = new double[threads];
+    List<Pair<Integer, Integer>> ranges = makeRanges(matrix.getRowsCount() * matrix.getColumnsCount(), threads);
+
+    List<Thread> threadList = new ArrayList<>();
+    for (int i = 0; i < threads; i++) {
+      Thread thread = new Thread(new FrobeniusThread(matrix, threads, ranges.get(i), resultArray));
+      thread.start();
+      threadList.add(thread);
+    }
+
+    for (Thread thread : threadList) {
+      thread.join();
+    }
+    return Math.sqrt(Arrays.stream(resultArray).sum());
   }
 }
