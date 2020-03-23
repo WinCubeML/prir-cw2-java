@@ -19,6 +19,18 @@ public class Matrix {
     this.data = data;
   }
 
+  public int getRows() {
+    return rows;
+  }
+
+  public int getColumns() {
+    return columns;
+  }
+
+  public Double[] getData() {
+    return data;
+  }
+
   public static Matrix blankMatrix(int rows, int columns) {
     return new Matrix(rows, columns, new Double[rows * columns]);
   }
@@ -53,6 +65,10 @@ public class Matrix {
 
   public int getIndex(int row, int column) {
     return row * this.columns + column;
+  }
+
+  public Pair<Integer, Integer> mapIndexToRowAndColumn(int index) {
+    return new Pair<>(index / this.rows, index % this.columns);
   }
 
   @Override
