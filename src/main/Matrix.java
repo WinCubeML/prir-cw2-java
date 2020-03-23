@@ -19,11 +19,11 @@ public class Matrix {
     this.data = data;
   }
 
-  public int getRows() {
+  public int getRowsCount() {
     return rows;
   }
 
-  public int getColumns() {
+  public int getColumnsCount() {
     return columns;
   }
 

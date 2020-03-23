@@ -19,7 +19,7 @@ public class MultiplicationThread implements Runnable {
       Pair<Integer, Integer> rowAndColumn = resultMatrix.mapIndexToRowAndColumn(index);
 
       double sum = 0;
-      for (int i = 0; i < matrixA.getColumns(); i++) {
+      for (int i = 0; i < matrixA.getColumnsCount(); i++) {
         double a = matrixA.get(rowAndColumn.getFirst(), i);
         double b = matrixB.get(i, rowAndColumn.getSecond());
         sum += a * b;
