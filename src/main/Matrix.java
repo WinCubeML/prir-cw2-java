@@ -27,10 +27,6 @@ public class Matrix {
     return columns;
   }
 
-  public Double[] getData() {
-    return data;
-  }
-
   public static Matrix blankMatrix(int rows, int columns) {
     return new Matrix(rows, columns, new Double[rows * columns]);
   }
