@@ -1,10 +1,20 @@
 package main;
 
+import java.io.FileNotFoundException;
+
 public class Main {
   public static void main(String[] args) {
     final int threadCount = getThreadCount(args);
     if (threadCount == -1) {
       System.exit(-1);
+    }
+    Matrix matrixA, matrixB;
+    try {
+      matrixA = Matrix.loadFile("A.txt");
+      matrixB = Matrix.loadFile("B.txt");
+    } catch (InvalidFileFormatException | FileNotFoundException e) {
+      e.printStackTrace();
+      System.exit(-2);
     }
   }
 
