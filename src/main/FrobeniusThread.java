@@ -2,13 +2,13 @@ package main;
 
 public class FrobeniusThread implements Runnable {
   private Matrix matrix;
-  private int thread;
+  private int threadNumber;
   private Pair<Integer, Integer> range;
   private double[] resultArray;
 
-  public FrobeniusThread(Matrix matrix, int thread, Pair<Integer, Integer> range, double[] resultArray) {
+  public FrobeniusThread(Matrix matrix, int threadNumber, Pair<Integer, Integer> range, double[] resultArray) {
     this.matrix = matrix;
-    this.thread = thread;
+    this.threadNumber = threadNumber;
     this.range = range;
     this.resultArray = resultArray;
   }
@@ -20,6 +20,6 @@ public class FrobeniusThread implements Runnable {
       Pair<Integer, Integer> rowAndColumn = matrix.mapIndexToRowAndColumn(index);
       sum += Math.pow(matrix.get(rowAndColumn.getFirst(), rowAndColumn.getSecond()), 2);
     }
-    resultArray[thread] = sum;
+    resultArray[threadNumber] = sum;
   }
 }

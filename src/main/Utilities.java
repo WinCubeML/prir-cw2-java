@@ -32,12 +32,12 @@ public class Utilities {
   /**
    * Utility to multiply two matrices with multithreading
    *
-   * @param matrixA the matrix A
-   * @param matrixB the matrix B
-   * @param threads the thread count
+   * @param matrixA     the matrix A
+   * @param matrixB     the matrix B
+   * @param threadCount the thread count
    * @return the result matrix
    */
-  public static Matrix multiplyMatrix(Matrix matrixA, Matrix matrixB, int threads) throws InterruptedException {
+  public static Matrix multiplyMatrix(Matrix matrixA, Matrix matrixB, int threadCount) throws InterruptedException {
     if (matrixA.getColumnsCount() != matrixB.getRowsCount()) {
       throw new IllegalArgumentException("Ilość kolumn macierzy A nie jest równa ilości wierszy macierzy B. Tych " +
           "macierzy nie da się pomnożyć ze sobą.");
@@ -45,10 +45,10 @@ public class Utilities {
 
     Matrix resultMatrix = Matrix.blankMatrix(matrixA.getRowsCount(), matrixB.getColumnsCount());
     List<Pair<Integer, Integer>> ranges = makeRanges(resultMatrix.getRowsCount() * resultMatrix.getColumnsCount(),
-        threads);
+        threadCount);
 
     List<Thread> threadList = new ArrayList<>();
-    for (int i = 0; i < threads; i++) {
+    for (int i = 0; i < threadCount; i++) {
       Thread thread = new Thread(new MultiplicationThread(matrixA, matrixB, resultMatrix, ranges.get(i)));
       thread.start();
       threadList.add(thread);
@@ -63,17 +63,17 @@ public class Utilities {
   /**
    * Utility to get Frobenius Norm from given matrix with multithreading
    *
-   * @param matrix  the matrix
-   * @param threads the thread count
+   * @param matrix      the matrix
+   * @param threadCount the thread count
    * @return the Frobenius Norm
    */
-  public static double getFrobeniusFromMatrix(Matrix matrix, int threads) throws InterruptedException {
-    double[] resultArray = new double[threads];
-    List<Pair<Integer, Integer>> ranges = makeRanges(matrix.getRowsCount() * matrix.getColumnsCount(), threads);
+  public static double getFrobeniusFromMatrix(Matrix matrix, int threadCount) throws InterruptedException {
+    double[] resultArray = new double[threadCount];
+    List<Pair<Integer, Integer>> ranges = makeRanges(matrix.getRowsCount() * matrix.getColumnsCount(), threadCount);
 
     List<Thread> threadList = new ArrayList<>();
-    for (int i = 0; i < threads; i++) {
-      Thread thread = new Thread(new FrobeniusThread(matrix, threads, ranges.get(i), resultArray));
+    for (int i = 0; i < threadCount; i++) {
+      Thread thread = new Thread(new FrobeniusThread(matrix, i, ranges.get(i), resultArray));
       thread.start();
       threadList.add(thread);
     }

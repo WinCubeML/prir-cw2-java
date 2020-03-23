@@ -68,7 +68,7 @@ public class Matrix {
   }
 
   public Pair<Integer, Integer> mapIndexToRowAndColumn(int index) {
-    return new Pair<>(index / this.rows, index % this.columns);
+    return new Pair<>(index / this.columns, index % this.columns);
   }
 
   @Override

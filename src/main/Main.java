@@ -3,7 +3,7 @@ package main;
 import java.io.FileNotFoundException;
 
 public class Main {
-  public static void main(String[] args) {
+  public static void main(String[] args) throws InterruptedException {
     final int threadCount = getThreadCount(args);
     if (threadCount == -1) {
       System.exit(-1);
@@ -24,6 +24,16 @@ public class Main {
 
     System.out.println("Macierz B:");
     System.out.println(matrixB.toString());
+
+    Matrix matrixC = Utilities.multiplyMatrix(matrixA, matrixB, threadCount);
+    double frobenius = Utilities.getFrobeniusFromMatrix(matrixC, threadCount);
+
+    System.out.println("Wynik mnożenia macierzy:");
+    System.out.println(matrixC);
+
+    System.out.println();
+
+    System.out.println("Norma Frobeniusa macierzy wynikowej: " + frobenius);
   }
 
   /**
