@@ -52,8 +52,8 @@ int main(int argc, char *argv[]) {
     int ma, na, mb, nb, i, j;
     double x;
 
-    fpa = argc > 2 ? fopen(argv[2], "r") : fopen("A.txt", "r");
-    fpb = argc > 3 ? fopen(argv[3], "r") : fopen("B.txt", "r");
+    fpa = argc > 1 ? fopen(argv[2], "r") : fopen("A.txt", "r");
+    fpb = argc > 2 ? fopen(argv[3], "r") : fopen("B.txt", "r");
 
     if( fpa == NULL || fpb == NULL ) {
         perror("Błąd otwarcia pliku\n");
